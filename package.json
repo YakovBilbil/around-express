@@ -1,0 +1,35 @@
+{
+    "name": "around-express",
+    "version": "1.0.0",
+    "description": "`/data` — JSON files to temporarily emulate database integration.",
+    "main": "app.mjs",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "npx eslint .",
+        "dev": "nodemon app.mjs",
+        "start": "node app.mjs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YakovBilbil/around-express.git"
+    },
+    "author": "Yakov Bilbil",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/YakovBilbil/around-express/issues"
+    },
+    "homepage": "https://github.com/YakovBilbil/around-express#readme",
+    "devDependencies": {
+        "eslint": "^8.9.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.4.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.1"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.2",
+        "express": "^4.17.3"
+    }
+}
