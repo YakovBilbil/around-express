@@ -1,18 +1,15 @@
-import { getJsonFromFile, pathJoin } from "../helpers/files.mjs";
+import { get_json_from_file, find_file_path } from "../helpers/files.mjs";
 
-const cardsFilePath = pathJoin("cards.json");
-const somethingWentWrongFilePath = pathJoin("somethingWentWrong.json");
-
-let errorMessage;
+const cards_file_path = find_file_path("cards.json");
 
 const get_cards = async(req, res) => {
     try {
-        const cards = await getJsonFromFile(cardsFilePath);
+        const cards = await get_json_from_file(cards_file_path);
         res.send(cards);
     } catch (error) {
-        console.log("Error happened in getCards", error);
-        errorMessage = await getJsonFromFile(somethingWentWrongFilePath);
-        res.status(500).send(errorMessage);
+        res.status(500).send({
+            "message": "Something went wrong"
+        });
     }
 }
 

@@ -2,18 +2,18 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const getJsonFromFile = async(filePath) => {
+const get_json_from_file = async(filePath) => {
     const file = await fs.promises.readFile(filePath);
     return JSON.parse(file);
 }
 
-const dirName = () => {
+const find_module_dir_path = () => {
     const __filename = fileURLToPath(
         import.meta.url);
     return path.dirname(__filename);
 }
 
-const pathJoin = (file) =>
-    path.join(dirName(), "..", "data", file);
+const find_file_path = (file) =>
+    path.join(find_module_dir_path(), "..", "data", file);
 
-export { getJsonFromFile, pathJoin };
+export { get_json_from_file, find_file_path };
