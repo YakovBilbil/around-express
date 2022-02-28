@@ -1,8 +1,8 @@
 import express from "express";
-import { getCards } from "../controllers/cards.mjs";
+import get_cards from "../controllers/cards.mjs";
 
 const router = express.Router();
 
-router.get("/", getCards);
+router.get("/", get_cards);
 
 export default router;

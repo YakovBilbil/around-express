@@ -1,14 +1,14 @@
 import { getJsonFromFile, pathJoin } from "../helpers/files.mjs";
 
-const cardsFilePath = pathJoin("cards.json");
+const requestedResourceNotFoundFilePath = pathJoin("requestedResourceNotFound.json");
 const somethingWentWrongFilePath = pathJoin("somethingWentWrong.json");
 
 let errorMessage;
 
-const get_cards = async(req, res) => {
+const response_for_other_else_url = async(req, res) => {
     try {
-        const cards = await getJsonFromFile(cardsFilePath);
-        res.send(cards);
+        errorMessage = await getJsonFromFile(requestedResourceNotFoundFilePath);
+        res.status(404).send(errorMessage);
     } catch (error) {
         console.log("Error happened in getCards", error);
         errorMessage = await getJsonFromFile(somethingWentWrongFilePath);
@@ -16,4 +16,4 @@ const get_cards = async(req, res) => {
     }
 }
 
-export default get_cards;
+export default response_for_other_else_url;

@@ -1,34 +1,37 @@
-import getJsonFromFile from "../helpers/files.mjs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getJsonFromFile, pathJoin } from "../helpers/files.mjs";
 
-const __filename = fileURLToPath(
-    import.meta.url);
+const usersFilePath = pathJoin("users.json");
+const somethingWentWrongFilePath = pathJoin("somethingWentWrong.json");
+const userIdNotFoundFilePath = pathJoin("userIdNotFound.json");
 
-const __dirname = path.dirname(__filename);
+let errorMessage;
 
-const usersFilePath = path.join(__dirname, "..", "data", "users.json");
-
-export const getUsers = async(req, res) => {
+const get_users = async(req, res) => {
     try {
         const users = await getJsonFromFile(usersFilePath);
         res.send(users);
     } catch (error) {
         console.log("Error happened in getUsers", error);
-        res.status(500).send("Something went wrong");
+        errorMessage = await getJsonFromFile(somethingWentWrongFilePath);
+        res.status(500).send(errorMessage);
     }
 }
 
-export const getUserById = async(req, res) => {
+const get_user_by_id = async(req, res) => {
     try {
         const users = await getJsonFromFile(usersFilePath);
         const user = users.find(user => user._id === req.params.user_id);
         if (!user) {
-            res.status(404).send("User ID not found");
+            errorMessage = await getJsonFromFile(userIdNotFoundFilePath);
+            res.status(404).send(errorMessage);
+        } else {
+            res.send(user);
         }
-        res.send(user);
     } catch (error) {
         console.log("Error happened in getUserById", error);
-        res.status(500).send("Something went wrong");
+        errorMessage = await getJsonFromFile(somethingWentWrongFilePath);
+        res.status(500).send(errorMessage);
     }
 }
+
+export { get_users, get_user_by_id };
