@@ -1,10 +1,10 @@
-import { get_json_from_file, find_file_path } from "../helpers/files.mjs";
+import { getJsonFromFile, findFilePath } from "../helpers/files.mjs";
 
-const users_file_path = find_file_path("users.json");
+const usersFilePath = findFilePath("users.json");
 
-const get_users = async(req, res) => {
+const getUsers = async(req, res) => {
     try {
-        const users = await get_json_from_file(users_file_path);
+        const users = await getJsonFromFile(usersFilePath);
         res.send(users);
     } catch (error) {
         res.status(500).send({
@@ -13,9 +13,9 @@ const get_users = async(req, res) => {
     }
 }
 
-const get_user_by_id = async(req, res) => {
+const getUserById = async(req, res) => {
     try {
-        const users = await get_json_from_file(users_file_path);
+        const users = await getJsonFromFile(usersFilePath);
         const user = users.find(user => user._id === req.params.user_id);
         if (!user) {
             res.status(404).send({
@@ -31,4 +31,4 @@ const get_user_by_id = async(req, res) => {
     }
 }
 
-export { get_users, get_user_by_id };
+export { getUsers, getUserById };

@@ -1,14 +1,14 @@
 import express from "express";
-import users_router from "./users.mjs";
-import cards_router from "./cards.mjs";
+import usersRouter from "./users.mjs";
+import cardsRouter from "./cards.mjs";
 
 const router = express();
 
-router.use("/users", users_router);
+router.use("/users", usersRouter);
 
-router.use("/cards", cards_router);
+router.use("/cards", cardsRouter);
 
-router.use(async(req, res) => {
+router.use((req, res) => {
     res.status(404).send({
         "message": "Requested resource not found"
     });

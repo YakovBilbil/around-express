@@ -1,10 +1,10 @@
-import { get_json_from_file, find_file_path } from "../helpers/files.mjs";
+import { getJsonFromFile, findFilePath } from "../helpers/files.mjs";
 
-const cards_file_path = find_file_path("cards.json");
+const cardsFilePath = findFilePath("cards.json");
 
-const get_cards = async(req, res) => {
+const getCards = async(req, res) => {
     try {
-        const cards = await get_json_from_file(cards_file_path);
+        const cards = await getJsonFromFile(cardsFilePath);
         res.send(cards);
     } catch (error) {
         res.status(500).send({
@@ -13,4 +13,4 @@ const get_cards = async(req, res) => {
     }
 }
 
-export default get_cards;
+export default getCards;
