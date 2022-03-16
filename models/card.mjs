@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 
 const cardSchema = new mongoose.Schema({
     name: {
@@ -10,21 +11,18 @@ const cardSchema = new mongoose.Schema({
     link: {
         type: String,
         required: true,
-        validate: {
-            validator: function(v) {
-                return /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
-            },
-            message: props => `${props.value} is not a valid URL address!`
-        },
+        validate: [validator.isURL, "invalid URL address!"]
     },
     owner: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
     },
-    likes: {
-        type: Array,
-        default: []
-    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        default: [],
+    }],
     createdAt: {
         type: Date,
         default: Date.now

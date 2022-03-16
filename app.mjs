@@ -2,8 +2,10 @@ import express from "express";
 import router from "./routes/index.mjs";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import helmet from "helmet";
+import { mongoServerAddress, limiter } from "./utils/config.mjs"
 
-mongoose.connect("mongodb://localhost:27017/aroundb");
+mongoose.connect(mongoServerAddress);
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -15,6 +17,10 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.use(helmet())
+
+app.use(limiter)
 
 app.use(bodyParser.json());
 

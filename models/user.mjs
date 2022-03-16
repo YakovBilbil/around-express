@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -16,12 +17,7 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: true,
-        validate: {
-            validator: function(v) {
-                return /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
-            },
-            message: props => `${props.value} is not a valid URL address!`
-        }
+        validate: [validator.isURL, "invalid URL address!"]
     }
 });
 
